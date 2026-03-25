@@ -22,40 +22,62 @@ namespace RecochApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Claves primarias explícitas
-            modelBuilder.Entity<Categoria>()
-                .HasKey(c => c.IdCategoria);
+            // USUARIO
+            modelBuilder.Entity<Usuario>().HasKey(u => u.IdUsuario);
+            modelBuilder.Entity<Usuario>().Property(u => u.IdUsuario).HasColumnName("id_usuario");
+            modelBuilder.Entity<Usuario>().Property(u => u.Nombre).HasColumnName("nombre");
+            modelBuilder.Entity<Usuario>().Property(u => u.Correo).HasColumnName("correo");
+            modelBuilder.Entity<Usuario>().Property(u => u.PasswordHash).HasColumnName("password_hash");
+            modelBuilder.Entity<Usuario>().Property(u => u.FechaNacimiento).HasColumnName("fecha_nacimiento");
 
-            modelBuilder.Entity<Contenido>()
-                .HasKey(c => c.IdContenido);
+            //CATEGORIA
+            modelBuilder.Entity<Categoria>().HasKey(c => c.IdCategoria);
+            modelBuilder.Entity<Categoria>().Property(c => c.IdCategoria).HasColumnName("id_categoria");
+            modelBuilder.Entity<Categoria>().Property(c => c.Nombre).HasColumnName("nombre");
 
-            modelBuilder.Entity<Usuario>()
-                .HasKey(u => u.IdUsuario);
+            // CONTENIDO
+            modelBuilder.Entity<Contenido>().HasKey(c => c.IdContenido);
+            modelBuilder.Entity<Contenido>().Property(c => c.IdContenido).HasColumnName("id_contenido");
+            modelBuilder.Entity<Contenido>().Property(c => c.Texto).HasColumnName("texto");
+            modelBuilder.Entity<Contenido>().Property(c => c.Tipo).HasColumnName("tipo");
+            modelBuilder.Entity<Contenido>().Property(c => c.IdCategoria).HasColumnName("id_categoria");
 
-            modelBuilder.Entity<Sala>()
-                .HasKey(s => s.IdSala);
+            // SALA
+            modelBuilder.Entity<Sala>().HasKey(s => s.IdSala);
+            modelBuilder.Entity<Sala>().Property(s => s.IdSala).HasColumnName("id_sala");
+            modelBuilder.Entity<Sala>().Property(s => s.Codigo).HasColumnName("codigo");
+            modelBuilder.Entity<Sala>().Property(s => s.IdAnfitrion).HasColumnName("id_anfitrion");
 
-            modelBuilder.Entity<Participante>()
-                .HasKey(p => p.IdParticipante);
+            // PARTICIPANTE
+            modelBuilder.Entity<Participante>().HasKey(p => p.IdParticipante);
+            modelBuilder.Entity<Participante>().Property(p => p.IdParticipante).HasColumnName("id_participante");
+            modelBuilder.Entity<Participante>().Property(p => p.IdUsuario).HasColumnName("id_usuario");
+            modelBuilder.Entity<Participante>().Property(p => p.IdSala).HasColumnName("id_sala");
 
-            modelBuilder.Entity<Turno>()
-                .HasKey(t => t.IdTurno);
+            // TURNO
+            modelBuilder.Entity<Turno>().HasKey(t => t.IdTurno);
+            modelBuilder.Entity<Turno>().Property(t => t.IdTurno).HasColumnName("id_turno");
+            modelBuilder.Entity<Turno>().Property(t => t.IdSala).HasColumnName("id_sala");
+            modelBuilder.Entity<Turno>().Property(t => t.IdParticipante).HasColumnName("id_participante");
+            modelBuilder.Entity<Turno>().Property(t => t.
+            Orden).HasColumnName("orden");
+            modelBuilder.Entity<Turno>().Property(t => t.Estado).HasColumnName("estado");
 
-            modelBuilder.Entity<ModoJuego>()
-                .HasKey(m => m.IdModo);
+            // MODO JUEGO
+            modelBuilder.Entity<ModoJuego>().HasKey(m => m.IdModo);
+            modelBuilder.Entity<ModoJuego>().Property(m => m.IdModo).HasColumnName("id_modo");
+            modelBuilder.Entity<ModoJuego>().Property(m => m.Nombre).HasColumnName("nombre");
+            modelBuilder.Entity<ModoJuego>().Property(m => m.CantidadJugadores).HasColumnName("cantidad_jugadores");
+            modelBuilder.Entity<ModoJuego>().Property(m => m.TiempoMinutos).HasColumnName("tiempo_minutos");
 
-            // Clave primaria compuesta de ModoContenido
+            // MUCHOS A MUCHOS
+           
+
             modelBuilder.Entity<ModoContenido>()
                 .HasKey(mc => new { mc.IdModo, mc.IdContenido });
 
-            // Índices únicos
-            modelBuilder.Entity<Usuario>()
-                .HasIndex(u => u.Correo)
-                .IsUnique();
-
-            modelBuilder.Entity<Sala>()
-                .HasIndex(s => s.Codigo)
-                .IsUnique();
+            modelBuilder.Entity<ModoContenido>().Property(mc => mc.IdModo).HasColumnName("id_modo");
+            modelBuilder.Entity<ModoContenido>().Property(mc => mc.IdContenido).HasColumnName("id_contenido");
         }
     }
 }
