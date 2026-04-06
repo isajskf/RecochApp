@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-.vs/ 
-=======
 ## .NET gitignore
 
 # Build results
@@ -54,4 +51,3 @@ desktop.ini
 
 # Copilot
 .copilot/
->>>>>>> 23692af69d02f8d19a04d4adf55a3d2b6dd3f8a7
