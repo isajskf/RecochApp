@@ -3,25 +3,35 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecochApp.Core.Models
 {
+    /// <summary>
+    /// Represents a user account with identifying and contact information.
+    /// </summary>
     public class Usuario
     {
-        [Key]
-        [Column("id_usuario")]
+        /// <summary>
+        /// Gets or sets the unique identifier for the user.
+        /// </summary>
         public int IdUsuario { get; set; }
 
-        [Column("nombre")]
+        /// <summary>
+        /// Gets or sets the name associated with the object.
+        /// </summary>
         public string Nombre { get; set; } = string.Empty;
 
-        [Column("correo")]
+        /// <summary>
+        /// Gets or sets the email address associated with the entity.
+        /// </summary>
+
         public string Correo { get; set; } = string.Empty;
 
-        [Column("password_hash")]
+        /// <summary>
+        /// Gets or sets the hashed representation of the user's password.
+        /// </summary>
         public string PasswordHash { get; set; } = string.Empty;
 
-        [Column("fecha_nacimiento")]
+        /// <summary>
+        /// Gets or sets the date of birth.
+        /// </summary>
         public DateTime FechaNacimiento { get; set; }
-
-        public ICollection<Participante> Participantes { get; set; } = new List<Participante>();
-        public ICollection<Sala> SalasCreadas { get; set; } = new List<Sala>();
     }
 }

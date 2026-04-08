@@ -8,9 +8,12 @@ namespace RecochApp.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
+    // Controlador para gestionar las operaciones CRUD de la entidad Sala.
     public class SalasController : ControllerBase
     {
         // Estas constantes se usan para armar el codigo de la sala.
+        // El codigo es un string de 6 caracteres alfanumericos, lo que da un total de 36^6 combinaciones posibles, lo que hace muy poco probable que se repitan.
         private const int LongitudCodigoSala = 6;
         private const string CaracteresCodigo = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -21,6 +24,7 @@ namespace RecochApp.API.Controllers
             _context = context;
         }
 
+        // Este endpoint devuelve una lista de todas las salas creadas, ordenadas por su id de forma descendente (las mas nuevas primero).
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<SalaResponse>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<SalaResponse>>> GetSalas()
@@ -38,9 +42,11 @@ namespace RecochApp.API.Controllers
                 })
                 .ToListAsync();
 
+            // De esta forma devolvemos solo la informacion necesaria de cada sala, sin incluir detalles de los participantes o del anfitrion.
             return Ok(salas);
         }
 
+        // Este endpoint devuelve los detalles de una sala en particular, buscandola por su codigo unico.
         [HttpGet("{codigo}")]
         [ProducesResponseType(typeof(SalaResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -49,13 +55,14 @@ namespace RecochApp.API.Controllers
             var sala = await _context.Salas
                 .Include(s => s.Participantes)
                 .FirstOrDefaultAsync(s => s.Codigo == codigo);
-
+            // Si no se encuentra la sala, devolvemos un error 404 con un mensaje explicativo.
             if (sala == null)
                 return NotFound(new { mensaje = "Sala no encontrada" });
 
             return Ok(MapearSala(sala));
         }
 
+        // Este endpoint permite crear una nueva sala, recibiendo el id del usuario anfitrion en el cuerpo de la solicitud.
         [HttpPost]
         [ProducesResponseType(typeof(SalaResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -80,11 +87,13 @@ namespace RecochApp.API.Controllers
             return CreatedAtAction(nameof(GetSalaPorCodigo), new { codigo = sala.Codigo }, response);
         }
 
+        // Este endpoint permite eliminar una sala por su id. Solo se puede eliminar una sala si no tiene participantes, para evitar problemas a los usuarios que ya estan participando.
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> EliminarSala(int id)
         {
+            // Antes de eliminar la sala validamos que exista y que no tenga participantes.
             var sala = await _context.Salas.FindAsync(id);
             if (sala == null)
                 return NotFound(new { mensaje = "Sala no encontrada" });
@@ -94,7 +103,8 @@ namespace RecochApp.API.Controllers
 
             return NoContent();
         }
-
+        
+        // Método auxiliar para mapear una entidad Sala a un objeto SalaResponse.
         private static SalaResponse MapearSala(Sala sala)
         {
             // Este metodo organiza la respuesta para que llegue mas limpia al frontend o a Swagger.
@@ -107,6 +117,7 @@ namespace RecochApp.API.Controllers
             };
         }
 
+        // Método auxiliar para generar un código único para cada sala. El código es un string de 6 caracteres alfanuméricos, y se asegura de que no se repita con ninguna sala existente en la base de datos.
         private async Task<string> GenerarCodigoAsync()
         {
             string codigo;
