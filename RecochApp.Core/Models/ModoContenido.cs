@@ -31,5 +31,11 @@ namespace RecochApp.Core.Models
         /// Gets or sets the content associated with this instance.
         /// </summary>
         public Contenido? Contenido { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the category.
+        /// </summary>
+        public int IdCategoria { get; set; }
+        public Categoria? Categoria { get; set; }
     }
 }

@@ -20,6 +20,11 @@ namespace RecochApp.Core.Models
         public string Nombre { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets the description of the game mode.
+        /// </summary>
+        public string Descripcion { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the number of players.
         /// </summary>
         public int CantidadJugadores { get; set; }

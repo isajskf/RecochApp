@@ -14,11 +14,11 @@ namespace RecochApp.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ModoJuegoesController : ControllerBase
+    public class ModoJuegoController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ModoJuegoesController(AppDbContext context)
+        public ModoJuegoController(AppDbContext context)
         {
             _context = context;
         }

@@ -31,6 +31,31 @@ namespace RecochApp.Core.Models
         /// Gets or sets the host user associated with the entity.
         /// </summary>
         public Usuario? Anfitrion { get; set; }
-        public List<Participante> Participantes { get; set; } = new List<Participante>();
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the game mode.
+        /// </summary>
+        public int IdModo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current state of the room.
+        /// </summary>
+        public string Estado { get; set; } = "Espera";
+
+        /// <summary>
+        /// Gets or sets the maximum number of participants allowed in the room.
+        /// </summary>
+        public int MaxParticipantes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the duration of the room in minutes.
+        /// </summary>
+        public int? DuracionMinutos { get; set; }
+
+        /// <summary>
+        /// Gets or sets the game mode associated with the room.
+        /// </summary>
+        public ModoJuego? ModoJuego { get; set; }
+
     }
 }

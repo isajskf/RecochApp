@@ -29,6 +29,11 @@ namespace RecochApp.Core.Models
         public int IdSala { get; set; }
 
         /// <summary>
+        /// Gets or sets the points accumulated by the participant.
+        /// </summary>
+        public int Puntos { get; set; } = 0;
+
+        /// <summary>
         /// Gets or sets the user associated with the current context.
         /// </summary>
         public Usuario? Usuario { get; set; }

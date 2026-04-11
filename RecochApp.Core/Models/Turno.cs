@@ -39,11 +39,6 @@ namespace RecochApp.Core.Models
         public int Orden { get; set; }
 
         /// <summary>
-        /// Gets or sets the current status of the entity.
-        /// </summary>
-        public string Estado { get; set; } = "pendiente";
-
-        /// <summary>
         /// Gets or sets the associated room entity.
         /// </summary>
         [JsonIgnore]
@@ -54,6 +49,26 @@ namespace RecochApp.Core.Models
         /// </summary>
         [JsonIgnore]
         public Participante? Participante { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the content.
+        /// </summary>
+        public int IdContenido { get; set; }
+
+        /// <summary>
+        /// Gets or sets the result of the turn.
+        /// </summary>
+        public string Resultado { get; set; } = "Pendiente";
+
+        /// <summary>
+        /// Gets or sets the score awarded for the turn.
+        /// </summary>
+        public int PuntajeOtorgado { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the content associated with the turn.
+        /// </summary>  
+        public Contenido? Contenido { get; set; }
 
     }
 }

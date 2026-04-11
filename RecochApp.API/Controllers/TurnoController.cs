@@ -13,11 +13,11 @@ namespace RecochApp.API.Controllers
     // Controlador para gestionar las operaciones CRUD de la entidad Turno.
     [Route("api/[controller]")]
     [ApiController]
-    public class TurnoesController : ControllerBase
+    public class TurnoController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public TurnoesController(AppDbContext context)
+        public TurnoController(AppDbContext context)
         {
             _context = context;
         }

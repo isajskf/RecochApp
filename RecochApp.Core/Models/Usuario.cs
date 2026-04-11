@@ -33,5 +33,10 @@ namespace RecochApp.Core.Models
         /// Gets or sets the date of birth.
         /// </summary>
         public DateTime FechaNacimiento { get; set; }
+
+        /// <summary>
+        /// Gets or sets the recovery token for password reset.
+        /// </summary>
+        public string? TokenRecuperacion { get; set; }
     }
 }

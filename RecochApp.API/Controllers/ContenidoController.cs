@@ -17,11 +17,11 @@ namespace RecochApp.API.Controllers
     /// <summary>
     /// Controlador para gestionar las operaciones CRUD de la entidad Contenido.
     /// </summary>
-    public class ContenidoesController : ControllerBase
+    public class ContenidoController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ContenidoesController(AppDbContext context)
+        public ContenidoController(AppDbContext context)
         {
             _context = context;
         }
