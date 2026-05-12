@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\backend",
+    "\\backend\\RecochApp.API",
+    "\\backend\\RecochApp.API\\Dtos",
+    "\\backend\\RecochApp.API\\Dtos\\Salas",
+    "\\backend\\RecochApp.API\\Properties",
+    "\\backend\\RecochApp.Core",
+    "\\backend\\RecochApp.Infrastructure",
+    "\\backend\\_vale_snapshot\\RecochApp-main",
+    "\\backend\\_vale_snapshot\\RecochApp-main\\RecochApp.API"
+  ],
+  "SelectedNode": "\\backend\\RecochApp.slnx",
+  "PreviewInSolutionExplorer": false
+}
