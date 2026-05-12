@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="RecochApp.API/RecochApp.API.csproj" />
-  <Project Path="RecochApp.Core/RecochApp.Core.csproj" />
-  <Project Path="RecochApp.Infrastructure/RecochApp.Infrastructure.csproj" />
-</Solution>
