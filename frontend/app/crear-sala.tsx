@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   Dimensions,
+  StatusBar,
   ScrollView,
 } from 'react-native';
 
@@ -60,7 +61,7 @@ export default function CrearSala() {
     {
       id: 'FIESTA',
       emoji: '🎉',
-      color: '#8e44ad',
+      color: '#9b59b6',
       descripcion: 'Perfecto para grupos',
       jugadores: '2-10 jugadores',
       intensidad: 'Media',
@@ -68,133 +69,77 @@ export default function CrearSala() {
   ];
 
   return (
-    <LinearGradient
-      colors={['#1d022e', '#25053a', '#2d0b45']}
-      style={styles.container}
-    >
+    <>
+      <StatusBar hidden />
 
-      <SafeAreaView style={styles.safe}>
+      <LinearGradient
+        colors={['#12001f', '#1d022e', '#12001f']}
+        style={styles.container}
+      >
 
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          showsVerticalScrollIndicator={false}
-        >
+        <SafeAreaView style={styles.safe}>
 
-          {/* CARD PRINCIPAL */}
-          <View style={styles.card}>
+          <ScrollView
+            contentContainerStyle={styles.scroll}
+            showsVerticalScrollIndicator={false}
+          >
 
-            {/* HEADER */}
-            <View style={styles.headerRow}>
+            <View style={styles.card}>
 
+              {/* LOGO */}
               <Image
                 source={require('./assets/images/logo.png')}
                 style={styles.logo}
               />
 
-            </View>
+              {/* SUBTITULO */}
+              <Text style={styles.subTitle}>
+                - Modos de juego -
+              </Text>
 
-            {/* SUBTITULO */}
-            <Text style={styles.subTitle}>
-              - Modos de juego -
-            </Text>
+              {/* MODOS */}
+              <View style={styles.modosContainer}>
 
-            {/* MODOS */}
-            <View style={styles.modosContainer}>
+                {modos.map((modo) => (
 
-              {modos.map((modo) => (
+                  <TouchableOpacity
+                    key={modo.id}
+                    activeOpacity={0.85}
+                    onPress={() => setModoSeleccionado(modo.id)}
+                    style={[
+                      styles.modoCard,
+                      {
+                        backgroundColor: modo.color,
+                      },
 
-                <TouchableOpacity
-                  key={modo.id}
-                  activeOpacity={0.8}
-                  onPress={() =>
-                    setModoSeleccionado(modo.id)
-                  }
-                  style={[
-                    styles.modoCard,
-                    {
-                      backgroundColor: modo.color,
-                    },
+                      modoSeleccionado === modo.id &&
+                        styles.selectedCard,
+                    ]}
+                  >
 
-                    modoSeleccionado === modo.id &&
-                      styles.selectedCard,
-                  ]}
-                >
-
-                  <Text style={styles.emoji}>
-                    {modo.emoji}
-                  </Text>
-
-                  <Text style={styles.cardTitle}>
-                    Modo{'\n'}{modo.id}
-                  </Text>
-
-                  <Text style={styles.cardDescription}>
-                    {modo.descripcion}
-                  </Text>
-
-                  <Text style={styles.cardInfo}>
-                    {modo.jugadores}
-                  </Text>
-
-                  <Text style={styles.cardInfo}>
-                    Intensidad: {modo.intensidad}
-                  </Text>
-
-                </TouchableOpacity>
-
-              ))}
-
-            </View>
-
-            {/* PERSONALIZAR */}
-            <Text style={styles.personalizar}>
-              ⚙️ Personaliza tu partida
-            </Text>
-
-            {/* CONFIG */}
-            <View style={styles.bottomRow}>
-
-              {/* JUGADORES */}
-              <View style={styles.playersContainer}>
-
-                <Text style={styles.bottomLabel}>
-                  Jugadores:
-                </Text>
-
-                <View style={styles.counter}>
-
-                  <TouchableOpacity>
-                    <Text style={styles.counterButton}>
-                      -
+                    <Text style={styles.emoji}>
+                      {modo.emoji}
                     </Text>
+
+                    <Text style={styles.cardTitle}>
+                      Modo{'\n'}{modo.id}
+                    </Text>
+
+                    <Text style={styles.cardDescription}>
+                      {modo.descripcion}
+                    </Text>
+
+                    <Text style={styles.cardInfo}>
+                      {modo.jugadores}
+                    </Text>
+
+                    <Text style={styles.cardInfo}>
+                      Intensidad: {modo.intensidad}
+                    </Text>
+
                   </TouchableOpacity>
 
-                  <Text style={styles.counterText}>
-                    5
-                  </Text>
-
-                  <TouchableOpacity>
-                    <Text style={styles.counterButton}>
-                      +
-                    </Text>
-                  </TouchableOpacity>
-
-                </View>
-
-              </View>
-
-              {/* TIEMPO */}
-              <View style={styles.timeContainer}>
-
-                <Text style={styles.bottomLabel}>
-                  Tiempo:
-                </Text>
-
-                <TouchableOpacity style={styles.timeButton}>
-                  <Text style={styles.timeText}>
-                    10 mins ▼
-                  </Text>
-                </TouchableOpacity>
+                ))}
 
               </View>
 
@@ -204,29 +149,28 @@ export default function CrearSala() {
                 onPress={() => router.push('/sala-espera')}
               >
                 <Text style={styles.startText}>
-                  Crear sala
+                  + Crear sala
+                </Text>
+              </TouchableOpacity>
+
+              {/* VOLVER */}
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => router.back()}
+              >
+                <Text style={styles.backText}>
+                  ← Volver al menú
                 </Text>
               </TouchableOpacity>
 
             </View>
 
-            {/* VOLVER */}
-            <TouchableOpacity
-              style={styles.backButton}
-              onPress={() => router.back()}
-            >
-              <Text style={styles.backText}>
-                ← Volver al menú
-              </Text>
-            </TouchableOpacity>
+          </ScrollView>
 
-          </View>
+        </SafeAreaView>
 
-        </ScrollView>
-
-      </SafeAreaView>
-
-    </LinearGradient>
+      </LinearGradient>
+    </>
   );
 }
 
@@ -234,6 +178,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    backgroundColor: '#12001f',
   },
 
   safe: {
@@ -248,48 +193,41 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    width: '92%',
-    minHeight: '90%',
+    width: '94%',
+    minHeight: '88%',
     backgroundColor: '#220335',
-    borderRadius: 35,
-    paddingVertical: 20,
-    paddingHorizontal: 22,
-    justifyContent: 'space-between',
-  },
-
-  headerRow: {
-    width: '100%',
+    borderRadius: 30,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 5,
-    marginBottom: 10,
+    paddingTop: 15,
+    paddingHorizontal: 15,
+    paddingBottom: 25,
   },
 
   logo: {
-    width: width * 0.30,
+    width: width * 0.22,
     height: 65,
     resizeMode: 'contain',
+    marginBottom: 5,
   },
 
   subTitle: {
     color: '#fff',
-    textAlign: 'center',
-    marginBottom: 8,
-    marginTop: -2,
-    fontSize: width * 0.014,
+    fontSize: 15,
+    marginBottom: 15,
   },
 
   modosContainer: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginBottom: 25,
   },
 
   modoCard: {
-    width: '22.5%',
+    width: '23%',
+    minHeight: height * 0.42,
     borderRadius: 22,
-    padding: 12,
-    height: height * 0.46,
+    padding: 14,
     justifyContent: 'flex-start',
   },
 
@@ -299,122 +237,56 @@ const styles = StyleSheet.create({
   },
 
   emoji: {
-    fontSize: 28,
-    marginBottom: 5,
+    fontSize: 34,
+    marginBottom: 10,
   },
 
   cardTitle: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: width * 0.024,
-    marginBottom: 4,
+    fontSize: 24,
+    marginBottom: 10,
   },
 
   cardDescription: {
     color: '#fff',
-    fontSize: width * 0.012,
-    marginBottom: 8,
+    fontSize: 12,
+    marginBottom: 15,
   },
 
   cardInfo: {
     color: '#fff',
-    fontSize: width * 0.011,
-    marginTop: 4,
-  },
-
-  personalizar: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: width * 0.02,
-    marginTop: 40,
-    marginBottom: 18,
-    fontWeight: 'bold',
-  },
-
-  bottomRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  playersContainer: {
-    width: '28%',
-  },
-
-  timeContainer: {
-    width: '22%',
-  },
-
-  bottomLabel: {
-    color: '#fff',
+    fontSize: 11,
     marginBottom: 8,
-    fontWeight: 'bold',
-    fontSize: width * 0.013,
-  },
-
-  counter: {
-    flexDirection: 'row',
-    backgroundColor: '#ff4fd8',
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingVertical: 8,
-  },
-
-  counterButton: {
-    color: '#fff',
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-
-  counterText: {
-    color: '#fff',
-    fontSize: width * 0.015,
-    fontWeight: 'bold',
-  },
-
-  timeButton: {
-    backgroundColor: '#ff4fd8',
-    paddingVertical: 10,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-
-  timeText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: width * 0.012,
   },
 
   startButton: {
-    backgroundColor: '#ff00b7',
-    width: '25%',
-    paddingVertical: 13,
-    borderRadius: 20,
-    alignItems: 'center',
+    backgroundColor: '#ff2ec4',
+    width: 250,
+    height: 55,
+    borderRadius: 18,
     justifyContent: 'center',
-    marginTop: 18,
+    alignItems: 'center',
+    marginBottom: 18,
   },
 
   startText: {
     color: '#fff',
-    fontSize: width * 0.013,
     fontWeight: 'bold',
+    fontSize: 20,
   },
 
   backButton: {
-    alignSelf: 'center',
-    marginTop: 10,
-    backgroundColor: '#c13bd3',
-    paddingHorizontal: 24,
-    paddingVertical: 10,
+    backgroundColor: '#a93dc9',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
     borderRadius: 20,
   },
 
   backText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: width * 0.013,
+    fontSize: 16,
   },
 
 });
